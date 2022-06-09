@@ -1,4 +1,5 @@
 import {ButtonProps} from './componentTypes'; 
+import { Button } from './component.styles';
 
 const ButtonComponent : React.FC<ButtonProps> = ({
     text,
@@ -6,7 +7,7 @@ const ButtonComponent : React.FC<ButtonProps> = ({
 
   return (
     <>
-      <button className='button' onClick={callback}> {text}</button>
+      <Button className='button' onClick={callback}> {text}</Button>
     </>
   );
 }

@@ -1,41 +1,51 @@
-import { useState,useEffect } from 'react';
-import DataComponent from './dataDisplay';
-import ButtonComponent from './button';
-import {fetchData,sortData,filterData} from '../helper';
+import { useState, useEffect } from "react";
+import DataComponent from "./dataDisplay";
+import ButtonComponent from "./button";
+import { fetchData, sortData, filterData } from "../helper";
+import { MainDiv, ButtonDiv, InputLabel } from "./component.styles";
 
 const MainComponent = () => {
   const [allData, setAllData] = useState<string[]>([]);
   const [data, setData] = useState<string[]>([]);
-  const [key, setKey] = useState<string>('');
+  const [key, setKey] = useState<string>("");
   useEffect(() => {
     const getData = async () => {
-        const result:string[] = await fetchData();
-        setAllData(result);
-        setData(result);
-      };
+      const result: string[] = await fetchData();
+      setAllData(result);
+      setData(result);
+    };
     getData();
-  },[]);
+  }, []);
 
   const handleSort = () => {
-      setData(sortData(data));
-  }
+    let dummyData:string[] = [...data];
+    setData(sortData(dummyData));
+  };
 
   const handlefilter = () => {
-    setData(filterData(key,data));
-  }
+    setData(filterData(key, allData));
+  };
   return (
-    <div className='main_div'>
-        <DataComponent data = {data}/>
-        <div>
-          <ButtonComponent text='sort' callback={()=>handleSort()} />
-          <input 
-            type='text' name='key'
+    <MainDiv>
+      <h1>Epns Task</h1>
+      <DataComponent data={data} />
+      <ButtonDiv>
+        <ButtonComponent text="Sort" callback={() => handleSort()} />
+        <InputLabel className="main-div-input_label">
+          Search
+          <input
+            type="text"
+            name="key"
             value={key}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setKey(e.target.value)}/>
-          <ButtonComponent text='filter' callback={()=>handlefilter()} />
-        </div>
-    </div>
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setKey(e.target.value)
+            }
+          />
+        </InputLabel>
+        <ButtonComponent text="Filter" callback={() => handlefilter()} />
+      </ButtonDiv>
+    </MainDiv>
   );
-}
+};
 
 export default MainComponent;
