@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import DataComponent from "./dataDisplay";
-import ButtonComponent from "./button";
-import { fetchData, sortData, filterData } from "../helper";
+import DataComponent from "./dataDisplay/dataDisplay";
+import ButtonComponent from "./button/button";
+import { fetchData, sortData, filterData } from "../helper/helper";
 import { MainDiv, ButtonDiv, InputLabel } from "./component.styles";
 
 const MainComponent = () => {
@@ -26,7 +26,7 @@ const MainComponent = () => {
     setData(filterData(key, allData));
   };
   return (
-    <MainDiv>
+    <MainDiv data-testid="main-element">
       <h1>Epns Task</h1>
       <DataComponent data={data} />
       <ButtonDiv>
